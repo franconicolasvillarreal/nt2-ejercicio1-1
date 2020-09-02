@@ -16,6 +16,8 @@
 <div class="container-fluid mt-3" id="app">
     <input type="text" class="form-control" v-model="criterioDeBusqueda" placeholder="Ingresar un criterio de busqueda...">
     <br>
+    <input type="number" class="form-control" v-model="dniBusqueda" placeholder="Ingresar un número de DNI...">
+    <br>
     <div class="card-deck m-0">
         <div class="row">
             <div class="col" v-for="persona in personasFiltradas">
@@ -39,6 +41,7 @@
         el: '#app',
         data: {
             criterioDeBusqueda: '',
+            dniBusqueda: '',
             //Aquí, en este array es donde tienen que agregar su información
             personas:
                 [
@@ -49,6 +52,7 @@
                     { nombre: 'Mauro', apellido: 'Abraham', dni: 37143235, correo: 'maauro.db@gmail.com' },
                     { nombre: 'Pablo Hernan', apellido: 'Aquino', dni: 32123456, correo: 'pablohaquino@gmail.com' },
                     { nombre: 'Marcelo', apellido: 'Rocchi', dni: 32677125, correo: 'marcelorocchi@hotmail.com' },
+                    { nombre: 'Franco', apellido: 'Villarreal', dni: 37109106, correo: 'franconicoalsvillarreal@gmail.com' },
                     { nombre: 'Florencia', apellido: 'Garduño', dni: 35805837, correo: 'garduno.florencia@gmail.com' }
                 ]
         },
@@ -56,7 +60,12 @@
             personasFiltradas() {
                 return this.personas.filter((persona) => {
                     let registroCompleto = `${persona.nombre}${persona.apellido}${persona.dni}${persona.correo}`
-                    return registroCompleto.toLowerCase().includes(this.criterioDeBusqueda.toLowerCase())
+                    //return registroCompleto.toLowerCase().includes(this.criterioDeBusqueda.toLowerCase())
+                    if(registroCompleto.toLowerCase().includes(this.criterioDeBusqueda.toLowerCase()) && registroCompleto.toLowerCase().includes(this.dniBusqueda)){
+                        return true
+                    } else {
+                        return false
+                    }
                 });
             }
         },
